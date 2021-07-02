@@ -40,7 +40,7 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node)
     {
         neighbor->parent = current_node;
         neighbor->h_value = CalculateHValue(neighbor);
-        neighbor->g_value = current_node->distance(*neighbor);
+        neighbor->g_value = current_node->g_value + current_node->distance(*neighbor);
         neighbor->visited = true;
         open_list.push_back(neighbor);
     }
@@ -82,14 +82,14 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
 
     // TODO: Implement your solution here.
     RouteModel::Node *_cur = current_node;
-    while (_cur)
+    while (_cur->parent)
     {
-        distance += _cur->g_value;
         path_found.push_back(*_cur);
         _cur = _cur->parent;
     }
+    path_found.push_back(*start_node);
     std::reverse(path_found.begin(), path_found.end());
-
+    distance = end_node->g_value;
     distance *= m_Model.MetricScale(); // Multiply the distance by the scale of the map to get meters.
     return path_found;
 }
