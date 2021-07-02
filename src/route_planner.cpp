@@ -62,9 +62,7 @@ RouteModel::Node *RoutePlanner::NextNode()
               });
 
     RouteModel::Node *result = open_list.front();
-    int s1 = open_list.size();
     open_list.erase(open_list.begin());
-    assert(s1 == open_list.size() + 1);
     return result;
 }
 
