@@ -8,6 +8,11 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 project(OSM_A_star_search)
 
+# If using macOS, you need to install xquartz and add /opt/x11/include into your include path
+if(APPLE)
+   include_directories(AFTER "/opt/X11/include")
+endif()
+
 # Set library output path to /lib
 set(LIBRARY_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/lib")
 
